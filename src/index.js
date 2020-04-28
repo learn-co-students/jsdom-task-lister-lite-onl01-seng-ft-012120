@@ -1,32 +1,24 @@
-// OO solution
 document.addEventListener("DOMContentLoaded", () => {
-  // initialize taskList class
-  const taskList = new TaskList();
-  //grab all the necessary DOM elements
-
-  //form and relevant input fields
-  const newTaskForm = document.getElementById("create-task-form");
-  const newTaskDescription = document.getElementById("new-task-description");
-  const newTaskPriority = document.getElementById("new-task-priority");
-
-  //ul where new tasks will live on the DOM
-  const taskUl = document.getElementById("tasks");
-
-  const renderApp = () => (taskUl.innerHTML = taskList.renderTasks());
-  //attach event listeners
-
-  newTaskForm.addEventListener("submit", (e) => {
+  // your code here
+  let form = document.querySelector("#create-task-form");
+  let itemList = document.querySelector("#tasks");
+  let xButton = document.createElement("button");
+  xButton.innerText = "x";
+  
+  let placeholder = document.querySelector("#new-task-description");
+  
+  form.addEventListener("submit", (e)=> {
+    let xButton = document.createElement("button");
+    xButton.addEventListener("click", (e)=> {
+      itemList.removeChild(e.target.parentNode);
+    });
+  xButton.innerText = "x";
     e.preventDefault();
-    taskList.createNewTask(newTaskDescription.value);
-    // reset form
-    e.target.reset();
-    renderApp();
-  });
-
-  taskUl.addEventListener("click", (e) => {
-    if (e.target.nodeName === "BUTTON") {
-      taskList.deleteTask(e.target.dataset.description);
-      renderApp();
-    }
+    let listItem = document.createElement("li");
+    listItem.innerText = e.target.elements[0].value + " ";
+    itemList.appendChild(listItem);
+    listItem.appendChild(xButton);
+    placeholder.setAttribute("placeholder", "description");
+    placeholder.value = "";
   });
 });
